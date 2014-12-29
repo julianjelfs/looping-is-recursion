@@ -42,7 +42,8 @@
            (recur (+ sum (first sq)) (rest sq)))))
 
 (defn parity [a-seq]
-  ":(")
+  (let [f (filter #(let [[_ snd] %] (odd? snd)) (frequencies a-seq))]
+        (set (map #(first %) f))))
 
 (defn fast-fibo [n]
   ":(")
