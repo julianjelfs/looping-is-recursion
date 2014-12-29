@@ -4,6 +4,7 @@
   (loop [acc 1
          n exp]
     (if (zero? n)
+      acc
       (recur (* acc base) (dec n)))))
 
 (defn last-element [a-seq]
@@ -34,7 +35,11 @@
       (recur (inc i) (rest sq))))) 
 
 (defn avg [a-seq]
-  -1)
+  (loop [sum 0
+         sq a-seq]
+         (if (empty? sq)
+           (/ sum (count a-seq))
+           (recur (+ sum (first sq)) (rest sq)))))
 
 (defn parity [a-seq]
   ":(")
