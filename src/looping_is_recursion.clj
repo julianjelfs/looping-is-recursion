@@ -37,17 +37,33 @@
 (defn avg [a-seq]
   (loop [sum 0
          sq a-seq]
-         (if (empty? sq)
-           (/ sum (count a-seq))
-           (recur (+ sum (first sq)) (rest sq)))))
+    (if (empty? sq)
+      (/ sum (count a-seq))
+      (recur (+ sum (first sq)) (rest sq)))))
 
 (defn parity [a-seq]
   (let [f (filter #(let [[_ snd] %] (odd? snd)) (frequencies a-seq))]
-        (set (map #(first %) f))))
+    (set (map #(first %) f))))
 
 (defn fast-fibo [n]
-  ":(")
+  (cond
+    (zero? n) 0
+    (= n 1) 1
+    :else
+    (loop [i 1
+           cur 1
+           prev 0]
+      (cond 
+        (= n i) (+ cur prev)
+        :else
+        (recur (inc i) prev (+ cur prev))))))
 
 (defn cut-at-repetition [a-seq]
-  [":("])
+  (loop [result []
+         sq a-seq]
+    (cond
+      (empty? sq) result 
+      (contains? (set result) (first sq)) result
+      :else
+        (recur (conj result (first sq)) (rest sq)))))
 
